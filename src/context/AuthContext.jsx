@@ -2,6 +2,7 @@ import { createContext, useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+const backendUrl = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
@@ -115,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     fetchNotifications();
 
     streamRef.current?.close();
-    const eventSource = new EventSource('/api/notifications/stream', { withCredentials: true });
+    const eventSource = new EventSource(`${backendUrl}/api/notifications/stream`, { withCredentials: true });
     streamRef.current = eventSource;
 
     eventSource.onmessage = (event) => {

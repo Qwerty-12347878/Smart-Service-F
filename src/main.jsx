@@ -5,8 +5,10 @@ import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext'
 
+const backendUrl = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000').replace(/\/$/, '')
+
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
+axios.defaults.baseURL = backendUrl
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
